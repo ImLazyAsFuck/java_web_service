@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${productId != null} ? 'Edit Product' : 'Add Product'">Product Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+<div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-6"
+        th:text="${productId != null} ? 'Edit Product' : 'Add Product'">Form</h1>
+
+    <form th:action="${productId != null} ? @{/products/{id}(id=${productId})} : @{/products/add}"
+          th:object="${productDto}" method="post" class="space-y-5">
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input type="text" th:field="*{name}"
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <div class="text-red-500 text-sm mt-1"
+                 th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}"></div>
+            <div class="text-red-500 text-sm mt-1"
+                 th:if="${errorField == 'name'}"
+                 th:text="${errorMessage}"></div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+            <input type="number" th:field="*{price}"
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <div class="text-red-500 text-sm mt-1"
+                 th:if="${#fields.hasErrors('price')}"
+                 th:errors="*{price}"></div>
+            <div class="text-red-500 text-sm mt-1"
+                 th:if="${errorField == 'price'}"
+                 th:text="${errorMessage}"></div>
+        </div>
+
+        <button type="submit"
+                th:text="${productId != null} ? 'Update' : 'Add'"
+                class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition duration-200">
+            Save
+        </button>
+    </form>
+
+    <div class="mt-4 text-center">
+        <a href="/products" class="text-blue-500 hover:underline">Back to List</a>
+    </div>
+</div>
+</body>
+</html>

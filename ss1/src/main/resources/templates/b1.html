@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table th:border="1">
+    <thead>
+    <tr>
+        <th>Tiêu chí</th>
+        <th>Spring MVC</th>
+        <th>Spring Boot</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Khái niệm</th>
+        <td>Là một framework con của Spring, chuyên xử lý các ứng dụng web dựa trên mô hình MVC.</td>
+        <td>Là một framework tự động cấu hình và khởi tạo ứng dụng Spring, giúp phát triển nhanh chóng, đặc biệt là ứng dụng web.</td>
+    </tr>
+    <tr>
+        <th>Cấu hình</th>
+        <td>Cần cấu hình nhiều file (XML hoặc annotation) để thiết lập các thành phần như DispatcherServlet, ViewResolver, DataSource, v.v.</td>
+        <td>Cấu hình tự động thông qua các lớp @Configuration và các starter dependencies, giúp giảm thiểu cấu hình thủ công.</td>
+    </tr>
+    <tr>
+        <th>Cách khởi tạo dự án</th>
+        <td>Cần tạo cấu trúc thư mục và tệp cấu hình thủ công, ví dụ như web.xml, applicationContext.xml, v.v.</td>
+        <td>Dự án có thể khởi tạo nhanh chóng qua Spring Initializr hoặc các template có sẵn với cấu trúc tự động.</td>
+    </tr>
+    <tr>
+        <th>Quản lý phụ thuộc</th>
+        <td>Quản lý phụ thuộc qua pom.xml hoặc build.gradle với nhiều dependency phải được khai báo thủ công.</td>
+        <td>Quản lý phụ thuộc dễ dàng qua các Starter dependencies trong pom.xml hoặc build.gradle mà không cần cấu hình chi tiết từng thư viện.</td>
+    </tr>
+    <tr>
+        <th>Thời gian phát triển</th>
+        <td>Thời gian phát triển lâu hơn vì phải thực hiện nhiều cấu hình thủ công và quản lý các thành phần riêng biệt.</td>
+        <td>Thời gian phát triển nhanh hơn nhờ vào việc tự động cấu hình và hỗ trợ tích hợp các thành phần mặc định sẵn có.</td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/}">Quay lại</a>
+</body>
+</html>
