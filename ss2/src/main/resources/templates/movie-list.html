@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách phim</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+<h2>🎬 Danh sách phim</h2>
+
+<div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+<a class="btn btn-primary mb-3" href="/movies/add">➕ Thêm phim mới</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tiêu đề</th>
+        <th>Thể loại</th>
+        <th>Thời lượng (phút)</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="movie : ${movies}">
+        <td th:text="${movie.id}"></td>
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.genre}"></td>
+        <td th:text="${movie.duration}"></td>
+        <td>
+            <a class="btn btn-sm btn-warning" th:href="@{'/movies/edit/' + ${movie.id}}">✏️ Sửa</a>
+            <form th:action="@{'/movies/delete/' + ${movie.id}}" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc muốn xóa phim này?');">
+                <button class="btn btn-sm btn-danger" type="submit">🗑️ Xóa</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/}" class="btn btn-secondary">Quay lại</a>
+</body>
+</html>

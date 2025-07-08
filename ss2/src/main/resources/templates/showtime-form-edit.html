@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa lịch chiếu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-8 bg-gray-50">
+<h1 class="text-2xl font-bold mb-6">Sửa lịch chiếu</h1>
+
+<form th:action="@{'/showtimes/edit/' + ${showtime.id}}" th:object="${showtime}" method="post" class="bg-white p-6 rounded shadow-md max-w-lg">
+    <div class="mb-4">
+        <label class="block mb-1">Phim</label>
+        <select th:field="*{movie.id}" class="w-full p-2 border rounded">
+            <option th:each="movie : ${movies}" th:value="${movie.id}" th:text="${movie.title}"
+                    th:selected="${movie.id} == ${showtime.movie.id}"></option>
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <label class="block mb-1">Phòng chiếu</label>
+        <select th:field="*{screenRoom.id}" class="w-full p-2 border rounded">
+            <option th:each="room : ${screenRooms}" th:value="${room.id}" th:text="${room.name}"
+                    th:selected="${room.id} == ${showtime.screenRoom.id}"></option>
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <label class="block mb-1">Thời gian bắt đầu</label>
+        <input type="datetime-local" th:field="*{startTime}" class="w-full p-2 border rounded"/>
+    </div>
+
+    <div class="mb-4">
+        <label class="block mb-1">Thời gian kết thúc</label>
+        <input type="datetime-local" th:field="*{endTime}" class="w-full p-2 border rounded"/>
+    </div>
+
+    <div class="mb-4">
+        <label class="block mb-1">Số ghế trống</label>
+        <input type="number" th:field="*{numberSeatEmpty}" class="w-full p-2 border rounded"/>
+    </div>
+
+    <div class="flex gap-2">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Cập nhật</button>
+        <a href="/showtimes" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Quay lại</a>
+    </div>
+</form>
+</body>
+</html>

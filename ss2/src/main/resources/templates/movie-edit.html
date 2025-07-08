@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cập nhật phim</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+<h2>✏️ Cập nhật phim</h2>
+
+<form th:action="@{'/movies/edit/' + ${movie.id}}" th:object="${movie}" method="post">
+    <div class="mb-3">
+        <label class="form-label">Tiêu đề</label>
+        <input type="text" th:field="*{title}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Thể loại</label>
+        <input type="text" th:field="*{genre}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Thời lượng (phút)</label>
+        <input type="number" th:field="*{duration}" class="form-control" required min="1">
+    </div>
+
+    <button type="submit" class="btn btn-primary">💾 Cập nhật</button>
+    <a href="/movies" class="btn btn-secondary">⬅️ Quay lại</a>
+</form>
+</body>
+</html>
