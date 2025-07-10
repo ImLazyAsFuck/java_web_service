@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa nhân viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-xl font-bold mb-4">Chỉnh sửa nhân viên</h1>
+
+    <div th:if="${error}" class="text-red-600 mb-4" th:text="${error}"></div>
+
+    <form th:action="@{|/employee/edit/${employee.id}|}" th:object="${employee}" method="post" class="space-y-4">
+        <div>
+            <label class="block font-semibold">Tên</label>
+            <input type="text" th:field="*{name}" class="w-full border px-4 py-2 rounded">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-red-600 text-sm"></p>
+        </div>
+
+        <div>
+            <label class="block font-semibold">Email</label>
+            <input type="email" th:field="*{email}" class="w-full border px-4 py-2 rounded">
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-600 text-sm"></p>
+        </div>
+
+        <div>
+            <label class="block font-semibold">Số điện thoại</label>
+            <input type="text" th:field="*{phone}" class="w-full border px-4 py-2 rounded">
+            <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-red-600 text-sm"></p>
+        </div>
+
+        <div>
+            <label class="block font-semibold">Lương</label>
+            <input type="number" step="0.01" th:field="*{salary}" class="w-full border px-4 py-2 rounded">
+            <p th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="text-red-600 text-sm"></p>
+        </div>
+
+        <div class="flex justify-end gap-2">
+            <a href="/employee" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Quay lại</a>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Cập nhật</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
