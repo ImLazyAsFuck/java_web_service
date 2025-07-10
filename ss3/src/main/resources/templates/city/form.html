@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>City Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-6">
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+  <h1 class="text-xl font-bold mb-4" th:text="${city.id == null ? 'Add New City' : 'Edit City'}"></h1>
+
+  <form th:action="@{/cities/save}" th:object="${city}" method="post" class="space-y-4">
+    <input type="hidden" th:field="*{id}"/>
+
+    <div>
+      <label class="block font-medium">Name</label>
+      <input type="text" th:field="*{name}" required
+             class="w-full px-3 py-2 border rounded"/>
+    </div>
+
+    <div>
+      <label class="block font-medium">Country</label>
+      <select th:field="*{countryId}" class="w-full px-3 py-2 border rounded" required>
+        <option value="">-- Choose Country --</option>
+        <option th:each="country : ${countries}"
+                th:value="${country.id}"
+                th:text="${country.name}"
+                th:selected="${country.id == city.countryId}">
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block font-medium">Season</label>
+      <select th:field="*{season}" class="w-full px-3 py-2 border rounded" required>
+        <option value="">-- Choose Season --</option>
+        <option th:each="s : ${seasons}" th:value="${s}" th:text="${s}"
+                th:selected="${s == city.season}"></option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block font-medium">Area</label>
+      <input type="number" step="0.1" min="1" th:field="*{area}" class="w-full px-3 py-2 border rounded"/>
+    </div>
+
+    <div>
+      <label class="block font-medium">Population</label>
+      <input type="number" min="1" th:field="*{population}" class="w-full px-3 py-2 border rounded"/>
+    </div>
+
+    <div class="flex justify-between mt-4">
+      <a th:href="@{/cities}" class="px-4 py-2 bg-gray-500 text-white rounded">Back</a>
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
