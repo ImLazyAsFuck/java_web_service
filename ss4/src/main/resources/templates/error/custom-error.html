@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lỗi hệ thống</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-red-50 min-h-screen flex items-center justify-center">
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-xl border border-red-300">
+    <div class="flex items-center space-x-4 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M18.364 5.636l-1.414-1.414L12 9.172 7.05 4.222 5.636 5.636 10.586 10.586 5.636 15.536l1.414 1.414L12 12.828l4.95 4.95 1.414-1.414-4.95-4.95 4.95-4.95z"/>
+        </svg>
+        <h1 class="text-2xl font-bold text-red-600">Đã xảy ra lỗi</h1>
+    </div>
+
+    <p class="text-gray-700 text-lg" th:text="${error}">Lỗi không xác định. Vui lòng thử lại sau.</p>
+
+    <div class="mt-6 flex justify-end">
+        <a th:href="@{/}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Quay về trang chủ
+        </a>
+    </div>
+</div>
+</body>
+</html>

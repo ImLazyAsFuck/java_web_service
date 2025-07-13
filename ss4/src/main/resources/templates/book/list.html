@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Sách</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-6xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Danh sách Sách</h1>
+
+    <div class="flex items-center gap-2 mb-4">
+        <form method="get" th:action="@{/books}" class="flex gap-2 flex-1">
+            <input type="text" name="search" th:value="${search}" placeholder="Tìm theo tên"
+                   class="flex-1 px-3 py-2 border rounded" />
+
+            <input type="hidden" name="sort" th:value="${sort}" />
+
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Tìm
+            </button>
+        </form>
+
+        <form method="get" th:action="@{/books}" id="sortForm">
+            <input type="hidden" name="search" th:value="${search}" />
+            <select name="sort" class="px-3 py-2 border rounded"
+                    onchange="document.getElementById('sortForm').submit()">
+                <option value="asc" th:selected="${sort == 'asc'}">ID tăng dần</option>
+                <option value="desc" th:selected="${sort == 'desc'}">ID giảm dần</option>
+            </select>
+        </form>
+
+        <a th:href="@{/books/create}" class="ml-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            + Thêm mới
+        </a>
+    </div>
+
+
+    <div th:if="${success}" class="bg-green-100 text-green-700 px-4 py-2 mb-3 rounded" th:text="${success}"></div>
+    <div th:if="${error}" class="bg-red-100 text-red-700 px-4 py-2 mb-3 rounded" th:text="${error}"></div>
+
+    <table class="w-full table-auto border border-gray-300">
+        <thead class="bg-gray-200">
+        <tr>
+            <th class="px-4 py-2 border">ID</th>
+            <th class="px-4 py-2 border">Tên sách</th>
+            <th class="px-4 py-2 border">Tác giả</th>
+            <th class="px-4 py-2 border">Nhà xuất bản</th>
+            <th class="px-4 py-2 border">Thể loại</th>
+            <th class="px-4 py-2 border">Năm XB</th>
+            <th class="px-4 py-2 border">Giá</th>
+            <th class="px-4 py-2 border">Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}" class="hover:bg-gray-50">
+            <td class="px-4 py-2 border" th:text="${book.id}">1</td>
+            <td class="px-4 py-2 border" th:text="${book.name}">Book Name</td>
+            <td class="px-4 py-2 border" th:text="${book.author}">Author</td>
+            <td class="px-4 py-2 border" th:text="${book.publisher}">Publisher</td>
+            <td class="px-4 py-2 border" th:text="${book.category.name}">Category</td>
+            <td class="px-4 py-2 border" th:text="${book.year}">2023</td>
+            <td class="px-4 py-2 border" th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')}">100.000</td>
+            <td class="px-4 py-2 border flex gap-2">
+                <a th:href="@{/books/edit/{id}(id=${book.id})}" class="text-blue-500 hover:underline">Sửa</a>
+                <a th:href="@{/books/delete/{id}(id=${book.id})}"
+                   onclick="return confirm('Bạn chắc chắn muốn xoá?')"
+                   class="text-red-500 hover:underline">Xoá</a>
+            </td>
+        </tr>
+        <tr th:if="${books.isEmpty()}">
+            <td colspan="8" class="px-4 py-2 text-center">Không có dữ liệu</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-6 flex gap-4 justify-center" th:if="${books.totalPages > 1}">
+        <form method="get" th:action="@{/books}" class="inline-flex rounded-full overflow-hidden shadow border border-gray-300">
+            <input type="hidden" name="search" th:value="${search}" />
+            <input type="hidden" name="sort" th:value="${sort}" />
+
+            <button type="submit" name="page" th:value="${books.number}"
+                    th:classappend="${books.first ? 'pointer-events-none opacity-50' : 'hover:bg-blue-100'}"
+                    class="px-4 py-2 bg-white text-gray-700 font-semibold transition">
+                &laquo;
+            </button>
+
+            <th:block th:each="pageNumber : ${pageNumbers}">
+                <button type="submit" name="page" th:value="${pageNumber}"
+                        th:class="${pageNumber == books.number + 1
+                        ? 'text-blue-500'
+                        : 'text-gray-700'}"
+                        class="px-4 py-2 font-medium transition-all duration-150">
+                    <span th:text="${pageNumber}">1</span>
+                </button>
+            </th:block>
+
+            <button type="submit" name="page" th:value="${books.number + 2}"
+                    th:classappend="${books.last ? 'pointer-events-none opacity-50' : 'hover:bg-blue-100'}"
+                    class="px-4 py-2 bg-white text-gray-700 font-semibold transition">
+                &raquo;
+            </button>
+        </form>
+    </div>
+
+    <div class="mt-4">
+        <a th:href="@{/}" class="text-blue-500 hover:underline">Trang chủ</a>
+    </div>
+</div>
+</body>
+</html>

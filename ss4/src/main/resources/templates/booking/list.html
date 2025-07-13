@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vé đã đặt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Danh sách vé đã đặt</h1>
+
+    <div th:if="${#lists.isEmpty(bookings)}">
+        <p class="text-gray-600">Không có vé nào được đặt với số điện thoại này.</p>
+    </div>
+
+    <div th:each="booking : ${bookings}" class="border rounded p-4 mb-4">
+        <p><strong>Khách hàng:</strong> <span th:text="${booking.customerName}"></span></p>
+        <p><strong>Số điện thoại:</strong> <span th:text="${booking.customerPhone}"></span></p>
+        <p><strong>Chuyến bay:</strong> <span th:text="${booking.flight.flightNumber}"></span> –
+            <span th:text="${booking.flight.departure}"></span> đến <span th:text="${booking.flight.destination}"></span></p>
+        <p><strong>Thời gian đặt:</strong> <span th:text="${#temporals.format(booking.bookingTime, 'dd/MM/yyyy HH:mm')}"></span></p>
+        <p><strong>Trạng thái:</strong>
+            <span th:text="${booking.status}" class="font-semibold"
+                  th:classappend="${booking.status == 'BOOKED'} ? 'text-green-600' : 'text-red-600'"></span>
+        </p>
+
+        <a th:href="@{/cancel-booking/{id}(id=${booking.id})}" th:if="${booking.status == 'BOOKED'}"
+           class="inline-block mt-2 text-red-600 hover:underline">Hủy vé</a>
+    </div>
+</div>
+</body>
+</html>

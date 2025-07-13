@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Thể loại</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-5xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Danh sách Thể loại</h1>
+
+    <form method="get" th:action="@{/categories}" class="flex mb-4 gap-2">
+        <input type="text" name="search" th:value="${search}" placeholder="Tìm theo tên"
+               class="flex-1 px-3 py-2 border rounded" />
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Tìm
+        </button>
+        <a th:href="@{/categories/create}" class="ml-auto bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            + Thêm mới
+        </a>
+    </form>
+
+    <div th:if="${success}" class="bg-green-100 text-green-700 px-4 py-2 mb-3 rounded" th:text="${success}"></div>
+    <div th:if="${error}" class="bg-red-100 text-red-700 px-4 py-2 mb-3 rounded" th:text="${error}"></div>
+
+    <table class="w-full table-auto border border-gray-300">
+        <thead class="bg-gray-200">
+        <tr>
+            <th class="px-4 py-2 border">ID</th>
+            <th class="px-4 py-2 border">Tên</th>
+            <th class="px-4 py-2 border">Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cat : ${categories}" class="hover:bg-gray-50">
+            <td class="px-4 py-2 border" th:text="${cat.id}">1</td>
+            <td class="px-4 py-2 border" th:text="${cat.name}">Fiction</td>
+            <td class="px-4 py-2 border flex gap-2">
+                <a th:href="@{/categories/edit/{id}(id=${cat.id})}" class="text-blue-500 hover:underline">Sửa</a>
+                <a th:href="@{/categories/delete/{id}(id=${cat.id})}"
+                   onclick="return confirm('Bạn chắc chắn muốn xoá?')"
+                   class="text-red-500 hover:underline">Xoá</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="text-blue-500 hover:underline">Back</a>
+</div>
+</body>
+</html>

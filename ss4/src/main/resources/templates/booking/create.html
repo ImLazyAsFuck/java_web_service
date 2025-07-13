@@ -1,0 +1,31 @@
+  <!DOCTYPE html>
+  <html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Đặt vé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 p-6">
+  <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-xl font-bold mb-4">Đặt vé máy bay</h1>
+
+    <form th:action="@{/book}" method="post" class="space-y-4">
+      <input type="hidden" name="flightId" th:value="${flightId}" />
+
+      <div>
+        <label class="block mb-1 font-medium">Tên khách hàng</label>
+        <input type="text" name="customerName" class="w-full border rounded p-2" required/>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-medium">Số điện thoại</label>
+        <input type="text" name="customerPhone" class="w-full border rounded p-2" required/>
+      </div>
+
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Xác nhận đặt vé
+      </button>
+    </form>
+  </div>
+  </body>
+  </html>
