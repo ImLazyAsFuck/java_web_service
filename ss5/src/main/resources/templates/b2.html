@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Tiêu chí</th>
+        <th>SOAP (Simple Object Access Protocol)</th>
+        <th>REST (Representational State Transfer)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Kiến trúc</td>
+        <td>Stateful hoặc Stateless</td>
+        <td>Chủ yếu Stateless</td>
+    </tr>
+    <tr>
+        <td>Định dạng dữ liệu</td>
+        <td>XML duy nhất</td>
+        <td>JSON, XML, HTML, v.v.</td>
+    </tr>
+    <tr>
+        <td>Tính linh hoạt</td>
+        <td>Hỗ trợ nhiều giao thức như HTTP, SMTP</td>
+        <td>Dựa trên HTTP (GET, POST, PUT, DELETE)</td>
+    </tr>
+    <tr>
+        <td>Tính bảo mật</td>
+        <td>WS-Security, phù hợp với giao dịch ngân hàng</td>
+        <td>Sử dụng HTTPS, OAuth; đơn giản hơn</td>
+    </tr>
+    <tr>
+        <td>Chuẩn và quy tắc</td>
+        <td>Chặt chẽ, dựa trên WSDL</td>
+        <td>Linh hoạt, không cần WSDL</td>
+    </tr>
+    <tr>
+        <td>Khả năng mở rộng</td>
+        <td>Tốt trong môi trường doanh nghiệp lớn</td>
+        <td>Tốt cho hệ thống nhẹ, microservices</td>
+    </tr>
+    <tr>
+        <td>Hiệu năng</td>
+        <td>Chậm hơn do XML và quy trình phức tạp</td>
+        <td>Nhanh hơn, đặc biệt khi dùng JSON</td>
+    </tr>
+    <tr>
+        <td>Khả năng tương thích</td>
+        <td>Tốt với hệ thống Windows/.NET</td>
+        <td>Tốt với ứng dụng web, di động</td>
+    </tr>
+    <tr>
+        <td>Dễ triển khai và phát triển</td>
+        <td>Khó hơn, cần nhiều công cụ hỗ trợ</td>
+        <td>Dễ triển khai hơn, đơn giản hơn</td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/}">Back</a>
+</body>
+</html>
