@@ -1,4 +1,4 @@
-package ra.edu.security.config;
+package com.b12345678.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package ra.edu.security.principal;
+package com.b12345678.security.principal;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

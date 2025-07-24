@@ -1,6 +1,7 @@
-package ra.edu.security.config;
+package com.b12345678.security.config;
 
-import jakarta.servlet.FilterChain;
+import com.b12345678.security.jwt.JWTAuthFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,15 +19,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ra.edu.security.jwt.JWTAuthFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
+@RequiredArgsConstructor
 public class SpringSecurity {
-    @Autowired
+
     private PasswordEncoder passwordEncoder;
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
@@ -51,12 +51,9 @@ public class SpringSecurity {
     public SecurityFilterChain configure(HttpSecurity http, JWTAuthFilter jWTAuthFilter) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/v1/product").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET,"/api/v1/product").hasAnyRole("ADMIN","USER")
-                        .requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN","USER")
-                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/v1/moderator/**").hasAnyRole("ADMIN","MODERATOR")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/posts").hasAnyRole("USER", "EDITOR", "ADMIN")
+                        .requestMatchers("/posts/**").hasAnyRole("EDITOR", "ADMIN")
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint()))
                 .authenticationProvider(authenticationProvider())

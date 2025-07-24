@@ -1,4 +1,4 @@
-package ra.edu.security.jwt;
+package com.b12345678.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
